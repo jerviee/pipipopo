@@ -455,14 +455,14 @@ function ExerciseGame() {
           <div className="flex justify-center gap-8 mb-8">
             <div className="text-center">
               <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-warm-300 mx-auto ${pipiAnimation}`}>
-                <img src="/pipi-1.jpg" alt="皮皮" className="w-full h-full object-cover" />
+                <img src="/pipi-1.jpg?v=1" alt="皮皮" className="w-full h-full object-cover" />
               </div>
               <p className="font-display text-xl text-warm-700 mt-2">皮皮</p>
             </div>
             <div className="text-4xl text-warm-400 mt-8">💪</div>
             <div className="text-center">
               <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-calm-300 mx-auto ${popoAnimation}`}>
-                <img src="/popo-1.jpg" alt="坡坡" className="w-full h-full object-cover" />
+                <img src="/popo-1.jpg?v=1" alt="坡坡" className="w-full h-full object-cover" />
               </div>
               <p className="font-display text-xl text-calm-600 mt-2">坡坡</p>
             </div>
@@ -503,14 +503,14 @@ function ExerciseGame() {
           <div className="flex justify-center gap-8 mb-8">
             <div className="text-center cursor-pointer" onClick={nextExercise} title="点击进入下一个锻炼">
               <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-warm-300 mx-auto transition-transform hover:scale-110 ${pipiAnimation}`}>
-                <img src="/pipi-1.jpg" alt="皮皮" className="w-full h-full object-cover" />
+                <img src="/pipi-1.jpg?v=1" alt="皮皮" className="w-full h-full object-cover" />
               </div>
               <p className="font-display text-lg text-warm-700 mt-2">皮皮</p>
             </div>
             <div className="text-4xl text-warm-400 mt-8">💪</div>
             <div className="text-center cursor-pointer" onClick={nextExercise} title="点击进入下一个锻炼">
               <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-calm-300 mx-auto transition-transform hover:scale-110 ${popoAnimation}`}>
-                <img src="/popo-1.jpg" alt="坡坡" className="w-full h-full object-cover" />
+                <img src="/popo-1.jpg?v=1" alt="坡坡" className="w-full h-full object-cover" />
               </div>
               <p className="font-display text-lg text-calm-600 mt-2">坡坡</p>
             </div>

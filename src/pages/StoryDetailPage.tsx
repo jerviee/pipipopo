@@ -5,16 +5,16 @@ import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 
 // 使用public目录中的本地图片作为头像
 const PIPI_IMAGES = [
-  '/pipi-1.jpg',
-  '/pipi-2.jpg',
-  '/pipi-3.jpg',
-  '/pipi-4.jpg',
+  '/pipi-1.jpg?v=1',
+  '/pipi-2.jpg?v=1',
+  '/pipi-3.jpg?v=1',
+  '/pipi-4.jpg?v=1',
 ];
 const POPO_IMAGES = [
-  '/popo-1.jpg',
-  '/popo-2.jpg',
-  '/popo-3.jpg',
-  '/popo-4.jpg',
+  '/popo-1.jpg?v=1',
+  '/popo-2.jpg?v=1',
+  '/popo-3.jpg?v=1',
+  '/popo-4.jpg?v=1',
 ];
 
 function getAvatarIndex(storyId: string): number {
@@ -25,7 +25,7 @@ function getAvatarIndex(storyId: string): number {
 function playChirpSound(pitch: number = 1) {
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
   const startTime = ctx.currentTime;
-  const duration = 2;
+  const duration = 1;
   
   let i = 0;
   const chirpInterval = setInterval(() => {
