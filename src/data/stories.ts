@@ -18,19 +18,26 @@ export const stories: Story[] = [
     summary: '皮皮要在班会上演讲，他紧张得翅膀都在发抖...',
     content: `皮皮站在教室前面，感觉自己的心跳得像打鼓一样快。
 
-"大家...大家好..."他的声音小得像蚊子叫。
+Pipi: "Everyone... hello everyone..." his voice was as small as a mosquito buzzing.
+皮皮："大家……大家好……"他的声音小得像蚊子叫。
+
+Pōpo: "Pipi, you've got this! Just breathe and speak from your heart."
+坡坡："皮皮，加油！深呼吸，把心里的话说出来就好。"
 
 皮皮的翅膀不停地颤抖，他看了看坐在窗边的坡坡。坡坡正悠闲地用爪子梳着羽毛，完全没有紧张的样子。
 
-"皮皮，加油！"坡坡轻声说道，还给了他一个微笑。
+Pōpo: "Take your time, Pipi. We're all listening just to you."
+坡坡："慢慢来，皮皮。我们都在听你一个人讲。"
 
 皮皮深吸一口气，慢慢地开始讲述他的故事。虽然一开始还是有点结巴，但随着故事的发展，他越来越自信了。
 
 演讲结束后，班上响起了热烈的掌声。皮皮松了一口气，原来演讲也没有那么可怕嘛！
 
-"坡坡，谢谢你的鼓励！"皮皮开心地说道。
+Pipi: "Pōpo, thank you for your encouragement!"
+皮皮："坡坡，谢谢你的鼓励！"
 
-"你看，你做到了吧！"坡坡眨眨眼睛，"下次就不紧张啦！"`,
+Pōpo: "See? You did it! Next time you won't be nervous anymore!"
+坡坡："你看，你做到了吧！下次就不紧张啦！"`,
     emoji: '📢',
     createdAt: '2026-06-20',
   },
@@ -42,25 +49,30 @@ export const stories: Story[] = [
     summary: '坡坡分享了一个神奇的放松技巧，让皮皮学会了深呼吸...',
     content: `今天阳光明媚，皮皮又因为考试的事情焦虑不安。
 
-"坡坡，我好紧张啊！下周就要期末考试了，我还有好多东西没复习完..."皮皮焦急地踱来踱去。
+Pipi: "Pōpo, I'm so nervous! The final exam is next week, and I haven't finished reviewing everything..."
+皮皮："坡坡，我好紧张啊！下周就要期末考试了，我还有好多东西没复习完……"
 
-坡坡从树枝上跳下来，拍了拍皮皮的翅膀。
+Pōpo: "Come on, Pipi, let me teach you a relaxation secret!"
+坡坡："来，皮皮，我教你一个放松秘籍！"
 
-"来，皮皮，我教你一个放松秘籍！"
+Pipi: "What is it? What is it?"
+皮皮："是什么？是什么？"
 
-"是什么？是什么？"皮皮好奇地问。
-
-"很简单，就是深呼吸。"坡坡慢慢地说，"吸气的时候，想象你在吸入温暖的阳光；呼气的时候，想象把所有的烦恼都呼出去。"
+Pōpo: "It's simple, just deep breathing. When you inhale, imagine you're breathing in warm sunshine. When you exhale, imagine all your worries flowing out."
+坡坡："很简单，就是深呼吸。吸气的时候，想象你在吸入温暖的阳光；呼气的时候，想象把所有的烦恼都呼出去。"
 
 皮皮试着做了一次，感觉好像真的舒服了一点。
 
-"再来几次，你会感觉更好的。"坡坡温柔地说。
+Pōpo: "Do it a few more times, and you'll feel even better."
+坡坡："再来几次，你会感觉更好的。"
 
 他们一起坐在大树下，做了十次深呼吸。皮皮感觉自己的心跳平稳了许多，脑子也清醒了很多。
 
-"谢谢你，坡坡！这个方法真的很管用！"皮皮的眉头终于舒展开来。
+Pipi: "Thank you, Pōpo! This method really works!"
+皮皮："谢谢你，坡坡！这个方法真的很管用！"
 
-"记住，当你感到紧张的时候，就做几次深呼吸。"坡坡眨眨眼，"这是大自然给我们的礼物哦！"`,
+Pōpo: "Remember, whenever you feel nervous, just do a few deep breaths. It's a gift from nature!"
+坡坡："记住，当你感到紧张的时候，就做几次深呼吸。这是大自然给我们的礼物哦！"`,
     emoji: '🌳',
     createdAt: '2026-06-19',
   },
@@ -72,25 +84,32 @@ export const stories: Story[] = [
     summary: '皮皮和坡坡要搬家了，面对新环境他们有不同的反应...',
     content: `皮皮和坡坡收到消息，他们的大树要被砍掉建新房子了，他们要搬到一个新的森林。
 
-皮皮整天愁眉苦脸："新森林会有什么样的树呢？会有我喜欢吃的橡果吗？会有我的老朋友吗？"
+Pipi: "What will the new forest be like? Will there be my favorite acorns? Will my old friends be there?"
+皮皮："新森林会有什么样的树呢？会有我喜欢吃的橡果吗？会有我的老朋友吗？"
 
-坡坡却很期待："听说新森林很大，有很多新朋友等着我们呢！"
+Pōpo: "I heard the new forest is huge, with lots of new friends waiting for us!"
+坡坡："听说新森林很大，有很多新朋友等着我们呢！"
 
 搬家那天，皮皮小心翼翼地抱着自己心爱的羽毛和收集的闪闪发光的小石头。
 
-"皮皮，你准备好了吗？"坡坡问道。
+Pōpo: "Pipi, are you ready?"
+坡坡："皮皮，你准备好了吗？"
 
-"我...我不知道..."皮皮的声音有些颤抖。
+Pipi: "I... I don't know..." Pipi's voice trembled a little.
+皮皮："我……我不知道……"皮皮的声音有些颤抖。
 
-坡坡飞到他身边，用翅膀轻轻拍了拍他："别担心，不管发生什么，我都会陪着你的。"
+Pōpo: "Don't worry, no matter what happens, I will always be by your side."
+坡坡："别担心，不管发生什么，我都会陪着你的。"
 
 到了新森林，皮皮发现这里真的很美丽！有高大的橡树，有清澈的小溪，还有许多友善的小动物。
 
-"皮皮，快来看！这里有一棵超级大的老橡树！"坡坡兴奋地叫着。
+Pōpo: "Pipi, come look! There's a super big old oak tree here!"
+坡坡："皮皮，快来看！这里有一棵超级大的老橡树！"
 
 皮皮飞过去，发现老橡树的树洞里有很多他喜欢的橡果！
 
-"太棒了！"皮皮开心地叫道，"这里真好！"
+Pipi: "Wow! This is amazing! This place is wonderful!"
+皮皮："太棒了！这里真好！"
 
 从此，皮皮学会了：新的开始，也可能是美好的冒险！`,
     emoji: '🏡',
@@ -106,25 +125,34 @@ export const stories: Story[] = [
 
 在梦里，他忘记了自己要去参加重要的聚会，所有的松鸦都在等他，他迟到了整整一天！
 
-"呼...呼..."皮皮喘着粗气，心跳得厉害。
+Pipi: "Huff... huff..." Pipi gasped for air, his heart beating fast.
+皮皮："呼……呼……"皮皮喘着粗气，心跳得厉害。
 
 他看了看窗外，月亮还挂在天上，周围很安静。
 
-"只是一个梦..."皮皮安慰自己，但是眼泪还是忍不住流了下来。
+Pipi: "It was just a dream..." Pipi tried to comfort himself, but tears still streamed down.
+皮皮："只是一个梦……"皮皮安慰自己，但是眼泪还是忍不住流了下来。
 
-这时候，坡坡的声音从旁边的树洞传来："皮皮？你怎么还没睡？"
+Pōpo: "Pipi? Why are you still awake?"
+坡坡："皮皮？你怎么还没睡？"
 
-"我...我做了一个噩梦..."皮皮小声说道。
+Pipi: "I... I had a nightmare..." Pipi said softly.
+皮皮："我……我做了一个噩梦……"皮皮小声说道。
 
-坡坡飞过来，停在皮皮身边。"噩梦里发生了什么？"
+Pōpo: "What happened in the nightmare?"
+坡坡："噩梦里发生了什么？"
 
-"我梦到自己迟到了，所有人都生气了..."皮皮把梦里的故事讲给了坡坡。
+Pipi: "I dreamed I was late, and everyone was angry at me..." Pipi told Pōpo the whole story.
+皮皮："我梦到自己迟到了，所有人都生气了……"皮皮把梦里的故事讲给了坡坡。
 
-坡坡轻轻地用翅膀拍了拍皮皮的背："梦里的事情不会成真的。明天我会提醒你去聚会的。"
+Pōpo: "Things in dreams don't come true. Tomorrow I will remind you about the party."
+坡坡："梦里的事情不会成真的。明天我会提醒你去聚会的。"
 
-"真的吗？"皮皮的眼泪渐渐停了。
+Pipi: "Really?" Pipi's tears gradually stopped.
+皮皮："真的吗？"皮皮的眼泪渐渐停了。
 
-"当然啦！我们是最好朋友啊！"坡坡笑着说。
+Pōpo: "Of course! We are best friends!"
+坡坡："当然啦！我们是最好朋友啊！"
 
 那天晚上，坡坡一直陪着皮皮，直到皮皮安心地睡着了。
 
@@ -140,9 +168,11 @@ export const stories: Story[] = [
     summary: '暴风雨过后，皮皮和坡坡一起看到了美丽的彩虹...',
     content: `今天下午，天空突然变得灰暗，一场暴风雨即将来临。
 
-皮皮躲在大树叶子里，担忧地说："暴风雨会很大吧？会不会把我们的房子吹走？"
+Pipi: "The storm will be huge, right? Will it blow our house away?"
+皮皮："暴风雨会很大吧？会不会把我们的房子吹走？"
 
-坡坡却很平静："没关系，皮皮。我们的树很结实，不会被吹走的。"
+Pōpo: "Don't worry, Pipi. Our tree is very strong, it won't be blown away."
+坡坡："没关系，皮皮。我们的树很结实，不会被吹走的。"
 
 哗啦啦，哗啦啦！大雨倾盆而下，电闪雷鸣。
 
@@ -150,21 +180,27 @@ export const stories: Story[] = [
 
 但是坡坡却很勇敢，他透过树叶的缝隙看着外面。
 
-"皮皮，快看！"坡坡兴奋地叫道。
+Pōpo: "Pipi, look quickly!"
+坡坡："皮皮，快看！"
 
-"看什么？暴风雨好可怕..."皮皮还是很害怕。
+Pipi: "Look at what? The storm is so scary..." Pipi was still very scared.
+皮皮："看什么？暴风雨好可怕……"皮皮还是很害怕。
 
-"相信我，睁开眼睛看看！"
+Pōpo: "Trust me, open your eyes and look!"
+坡坡："相信我，睁开眼睛看看！"
 
 皮皮慢慢地睁开眼睛，透过树叶，他看到了——一道美丽的彩虹横跨在天空中！
 
-"哇！好漂亮啊！"皮皮惊叹道。
+Pipi: "Wow! So beautiful!"
+皮皮："哇！好漂亮啊！"
 
 暴风雨过后，太阳公公露出了笑脸，天空中挂着一道七色彩虹。
 
-"坡坡，你看！彩虹！"皮皮开心极了。
+Pipi: "Pōpo, look! A rainbow!" Pipi was overjoyed.
+皮皮："坡坡，你看！彩虹！"皮皮开心极了。
 
-"是啊，"坡坡笑着说，"暴风雨过后，总会有彩虹的。"
+Pōpo: "Yes," Pōpo smiled, "after every storm, there will be a rainbow."
+坡坡："是啊，"坡坡笑着说，"暴风雨过后，总会有彩虹的。"
 
 皮皮明白了：有时候，困难和挑战之后，会有更美好的事情在等着我们。`,
     emoji: '🌈',
@@ -176,25 +212,31 @@ export const stories: Story[] = [
     character: 'pipi',
     category: 'anxiety',
     summary: '皮皮收集了很多东西，但他总是担心会弄丢...',
-    content: `皮皮的树洞里堆满了他收集的各种宝贝：闪闪发光的玻璃碎片、漂亮的羽毛、各种颜色的石头...
+    content: `皮皮的树洞里堆满了他收集的各种宝贝：闪闪发光的玻璃碎片、漂亮的羽毛、各种颜色的石头……
 
-"皮皮，你的房间好乱啊！"坡坡飞进来，差点被地上的东西绊倒。
+Pōpo: "Pipi, your room is so messy!" Pōpo flew in and almost tripped over the things on the ground.
+坡坡："皮皮，你的房间好乱啊！"坡坡飞进来，差点被地上的东西绊倒。
 
-"这些都是我珍贵的宝贝！"皮皮紧张地说，"万一弄丢了怎么办？"
+Pipi: "These are all my precious treasures! What if I lose them?"
+皮皮："这些都是我珍贵的宝贝！万一弄丢了怎么办？"
 
-"可是这样你连转身的空间都没有了啊！"坡坡说道。
+Pōpo: "But this way you don't even have space to turn around!"
+坡坡："可是这样你连转身的空间都没有了啊！"
 
-皮皮看着满屋子的东西，突然感到很焦虑：这么多东西，如果弄丢了怎么办？如果被偷了怎么办？如果...
+皮皮看着满屋子的东西，突然感到很焦虑：这么多东西，如果弄丢了怎么办？如果被偷了怎么办？如果……
 
-"皮皮！"坡坡的声音打断了他的思绪，"你想想，你最珍贵的宝贝是什么？"
+Pōpo: "Pipi!" Pōpo's voice interrupted his thoughts, "Think about it, what is your most precious treasure?"
+坡坡："皮皮！"坡坡的声音打断了他的思绪，"你想想，你最珍贵的宝贝是什么？"
 
-皮皮想了想："嗯...应该是你吧？因为你是我的好朋友！"
+皮皮想了想："嗯……应该是你吧？因为你是我的好朋友！"
 
-"对啊！"坡坡笑了，"友情是最珍贵的宝贝，而且永远不会丢失！"
+Pōpo: "That's right! Friendship is the most precious treasure, and it will never be lost!"
+坡坡："对啊！友情是最珍贵的宝贝，而且永远不会丢失！"
 
 皮皮看着坡坡，心里暖暖的。他决定只留下几件最有意义的收藏，其他的分享给其他小动物。
 
-"谢谢你，坡坡！"皮皮感觉轻松多了，"现在我有更多空间可以跳舞啦！"`,
+Pipi: "Thank you, Pōpo! Now I have more space to dance!"
+皮皮："谢谢你，坡坡！现在我有更多空间可以跳舞啦！"`,
     emoji: '✨',
     createdAt: '2026-06-15',
   },
@@ -206,27 +248,35 @@ export const stories: Story[] = [
     summary: '坡坡每天都早睡早起，他有什么健康秘诀吗？',
     content: `清晨，太阳刚刚升起，坡坡已经精神抖擞地在树枝上做早操了。
 
-皮皮打着哈欠从树洞里探出头来："坡坡，你怎么每天都这么有精神啊？我每天都觉得睡不醒..."
+Pipi: "Pōpo, how do you have so much energy every day? I always feel like I can't wake up..."
+皮皮："坡坡，你怎么每天都这么有精神啊？我每天都觉得睡不醒……"
 
-"因为我每天都早睡早起呀！"坡坡边做伸展运动边说。
+Pōpo: "Because I go to bed early and wake up early every day!" Pōpo said while doing stretches.
+坡坡："因为我每天都早睡早起呀！"坡坡边做伸展运动边说。
 
-"可是晚上有那么多有趣的事情可以做，我不想那么早睡觉..."皮皮说道。
+Pipi: "But there are so many fun things to do at night, I don't want to sleep so early..."
+皮皮："可是晚上有那么多有趣的事情可以做，我不想那么早睡觉……"
 
-"皮皮，你知道吗？"坡坡飞到他身边，"充足的睡眠对我们很重要哦！它能帮助我们的大脑发育，还能让我们更有精力。"
+Pōpo: "Pipi, do you know? Adequate sleep is very important for us. It helps our brain develop and gives us more energy."
+坡坡："皮皮，你知道吗？充足的睡眠对我们很重要哦！它能帮助我们的大脑发育，还能让我们更有精力。"
 
-"真的吗？"皮皮好奇地问。
+Pipi: "Really?" Pipi asked curiously.
+皮皮："真的吗？"皮皮好奇地问。
 
-"当然！我每天太阳下山就睡觉，天亮就起床。"坡坡说，"这样我每天都有充足的精力去探索新事物！"
+Pōpo: "Of course! I sleep when the sun goes down and wake up when it's light. This way I have plenty of energy to explore new things every day!"
+坡坡："当然！我每天太阳下山就睡觉，天亮就起床。这样我每天都有充足的精力去探索新事物！"
 
 皮皮想了想，决定试试坡坡的方法。
 
-那天晚上，皮皮早早地爬进了温暖的羽毛枕头里。刚开始他还有点睡不着，但是慢慢地，他感觉眼皮越来越重...
+那天晚上，皮皮早早地爬进了温暖的羽毛枕头里。刚开始他还有点睡不着，但是慢慢地，他感觉眼皮越来越重……
 
 第二天早上，皮皮神清气爽地醒来，感觉特别棒！
 
-"坡坡，你说得对！早睡早起真的让我精神好多了！"皮皮开心地说。
+Pipi: "Pōpo, you were right! Going to bed early and waking up early really makes me feel much better!"
+皮皮："坡坡，你说得对！早睡早起真的让我精神好多了！"
 
-"欢迎来到早睡早起俱乐部！"坡坡笑着说。`,
+Pōpo: "Welcome to the early to bed, early to rise club!" Pōpo said with a smile.
+坡坡："欢迎来到早睡早起俱乐部！"坡坡笑着说。`,
     emoji: '🌅',
     createdAt: '2026-06-14',
   },
@@ -238,27 +288,36 @@ export const stories: Story[] = [
     summary: '皮皮和坡坡决定一起做松果蛋糕，虽然过程曲折但结果很甜...',
     content: `母亲节快到了，皮皮和坡坡决定给妈妈做一个特别的松果蛋糕。
 
-"我们要做世界上最好吃的蛋糕！"皮皮兴奋地说。
+Pipi: "We're going to make the world's most delicious cake!" Pipi said excitedly.
+皮皮："我们要做世界上最好吃的蛋糕！"皮皮兴奋地说。
 
-"我来收集松果，你去找蜂蜜吧！"坡坡分配任务。
+Pōpo: "I'll collect pine cones, you go find some honey!" Pōpo assigned the tasks.
+坡坡："我来收集松果，你去找蜂蜜吧！"坡坡分配任务。
 
 皮皮找到了一罐蜂蜜，但是路上不小心洒了一大半！
 
-"糟糕了！"皮皮急得快哭了。
+Pipi: "Oh no!" Pipi almost cried.
+皮皮："糟糕了！"皮皮急得快哭了。
 
-坡坡看到后说："没关系，我们想想办法。蜂蜜不够的话，我们可以少放一点，多放一些浆果，一样会很美味的！"
+Pōpo: "It's okay, let's think of a solution. If we don't have enough honey, we can use less and add more berries. It will still be delicious!"
+坡坡："没关系，我们想想办法。蜂蜜不够的话，我们可以少放一点，多放一些浆果，一样会很美味的！"
 
 皮皮擦了擦眼泪，决定重新振作。
 
-他们一起合作，和面、加料、搅拌...忙活了一整个下午。
+他们一起合作，和面、加料、搅拌……忙活了一整个下午。
 
-蛋糕终于做好了！虽然形状有点歪歪扭扭的，颜色也不太均匀...
+蛋糕终于做好了！虽然形状有点歪歪扭扭的，颜色也不太均匀……
 
-但是当松鸦妈妈咬下第一口时，她的眼睛湿润了："这是我吃过最好吃的蛋糕！"
+但是当松鸦妈妈咬下第一口时，她的眼睛湿润了：
 
-"真的吗？"皮皮惊喜地问。
+Mom: "This is the most delicious cake I've ever eaten!"
+妈妈："这是我吃过最好吃的蛋糕！"
 
-"当然！因为这是你们用心做的！"妈妈把皮皮和坡坡都抱在怀里。
+Pipi: "Really?" Pipi asked with surprise.
+皮皮："真的吗？"皮皮惊喜地问。
+
+Mom: "Of course! Because you made it with your heart!" Mom hugged both Pipi and Pōpo.
+妈妈："当然！因为这是你们用心做的！"妈妈把皮皮和坡坡都抱在怀里。
 
 皮皮明白了：重要的不是完美，而是用心和爱。`,
     emoji: '🎂',
