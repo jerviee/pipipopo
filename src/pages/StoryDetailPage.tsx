@@ -5,16 +5,16 @@ import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 
 // 使用public目录中的本地图片作为头像
 const PIPI_IMAGES = [
-  '/皮皮-1.jpg',
-  '/皮皮-2.jpg',
-  '/皮皮-3.jpg',
-  '/皮皮-4.jpg',
+  '/pipi-1.jpg',
+  '/pipi-2.jpg',
+  '/pipi-3.jpg',
+  '/pipi-4.jpg',
 ];
 const POPO_IMAGES = [
-  '/坡坡-1.jpg',
-  '/坡坡-2.jpg',
-  '/坡坡-3.jpg',
-  '/坡坡-4.jpg',
+  '/popo-1.jpg',
+  '/popo-2.jpg',
+  '/popo-3.jpg',
+  '/popo-4.jpg',
 ];
 
 function getAvatarIndex(storyId: string): number {
@@ -24,27 +24,35 @@ function getAvatarIndex(storyId: string): number {
 
 function playChirpSound(pitch: number = 1) {
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const startTime = ctx.currentTime;
+  const duration = 2;
   
-  // 叽叽叽三声
-  for (let i = 0; i < 3; i++) {
-    setTimeout(() => {
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(2500 * pitch, ctx.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(3500 * pitch, ctx.currentTime + 0.1);
-      
-      gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-      
-      oscillator.start(ctx.currentTime);
-      oscillator.stop(ctx.currentTime + 0.15);
-    }, i * 150);
-  }
+  let i = 0;
+  const chirpInterval = setInterval(() => {
+    const elapsed = ctx.currentTime - startTime;
+    if (elapsed >= duration) {
+      clearInterval(chirpInterval);
+      return;
+    }
+    
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(2500 * pitch, ctx.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(3500 * pitch, ctx.currentTime + 0.08);
+    
+    gainNode.gain.setValueAtTime(0.25, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+    
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.12);
+    
+    i++;
+  }, 100);
 }
 
 export default function StoryDetailPage() {

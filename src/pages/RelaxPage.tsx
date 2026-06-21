@@ -406,6 +406,18 @@ function ExerciseGame() {
     { name: '羽毛整理', pipi: 'animate-float', popo: 'animate-float', emoji: '✨' },
   ];
 
+  const nextExercise = () => {
+    if (!isPlaying) return;
+    if (exercise < exercises.length - 1) {
+      setExercise(e => e + 1);
+      setCountdown(10);
+      setScore(s => s + 10);
+    } else {
+      setIsPlaying(false);
+      setScore(s => s + 20);
+    }
+  };
+
   useEffect(() => {
     if (!isPlaying) return;
 
@@ -413,14 +425,7 @@ function ExerciseGame() {
       const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
       return () => clearTimeout(timer);
     } else {
-      if (exercise < exercises.length - 1) {
-        setExercise(e => e + 1);
-        setCountdown(10);
-        setScore(s => s + 10);
-      } else {
-        setIsPlaying(false);
-        setScore(s => s + 20);
-      }
+      nextExercise();
     }
   }, [isPlaying, countdown, exercise]);
 
@@ -449,12 +454,16 @@ function ExerciseGame() {
         <div className="text-center">
           <div className="flex justify-center gap-8 mb-8">
             <div className="text-center">
-              <div className={`text-8xl ${pipiAnimation}`}>🐦</div>
+              <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-warm-300 mx-auto ${pipiAnimation}`}>
+                <img src="/pipi-1.jpg" alt="皮皮" className="w-full h-full object-cover" />
+              </div>
               <p className="font-display text-xl text-warm-700 mt-2">皮皮</p>
             </div>
             <div className="text-4xl text-warm-400 mt-8">💪</div>
             <div className="text-center">
-              <div className={`text-8xl ${popoAnimation}`}>🦅</div>
+              <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-calm-300 mx-auto ${popoAnimation}`}>
+                <img src="/popo-1.jpg" alt="坡坡" className="w-full h-full object-cover" />
+              </div>
               <p className="font-display text-xl text-calm-600 mt-2">坡坡</p>
             </div>
           </div>
@@ -492,13 +501,17 @@ function ExerciseGame() {
           </div>
 
           <div className="flex justify-center gap-8 mb-8">
-            <div className="text-center">
-              <div className={`text-8xl ${pipiAnimation}`}>🐦</div>
+            <div className="text-center cursor-pointer" onClick={nextExercise} title="点击进入下一个锻炼">
+              <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-warm-300 mx-auto transition-transform hover:scale-110 ${pipiAnimation}`}>
+                <img src="/pipi-1.jpg" alt="皮皮" className="w-full h-full object-cover" />
+              </div>
               <p className="font-display text-lg text-warm-700 mt-2">皮皮</p>
             </div>
             <div className="text-4xl text-warm-400 mt-8">💪</div>
-            <div className="text-center">
-              <div className={`text-8xl ${popoAnimation}`}>🦅</div>
+            <div className="text-center cursor-pointer" onClick={nextExercise} title="点击进入下一个锻炼">
+              <div className={`w-24 h-24 rounded-full overflow-hidden border-4 border-calm-300 mx-auto transition-transform hover:scale-110 ${popoAnimation}`}>
+                <img src="/popo-1.jpg" alt="坡坡" className="w-full h-full object-cover" />
+              </div>
               <p className="font-display text-lg text-calm-600 mt-2">坡坡</p>
             </div>
           </div>
