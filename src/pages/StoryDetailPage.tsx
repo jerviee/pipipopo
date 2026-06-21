@@ -1,75 +1,92 @@
 import { useParams, Link, useState, useEffect, useRef } from 'react-router-dom';
 import { getStoryById } from '../data/stories';
-import { ArrowLeft, Calendar, Play, Pause, Volume2, VolumeX, RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 
 export default function StoryDetailPage() {
   const { id } = useParams<{ id: string }>();
   const story = id ? getStoryById(id) : null;
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [currentParagraph, setCurrentParagraph] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [speakingIndex, setSpeakingIndex] = useState(-1);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [currentDialogueIndex, setCurrentDialogueIndex] = useState(-1);
+  const [speakingCharacter, setSpeakingCharacter] = useState<'pipi' | 'popo' | 'frog' | null>(null);
+  const [currentEnglish, setCurrentEnglish] = useState('');
+  const [currentChinese, setCurrentChinese] = useState('');
+  const [dialogues, setDialogues] = useState<Array<{speaker: 'pipi' | 'popo' | 'frog', english: string, chinese: string}>>([]);
 
   useEffect(() => {
-    const handleEnd = () => {
-      setSpeakingIndex(-1);
-      if (currentParagraph < (story?.content.split('\n\n').length || 0) - 1) {
-        setTimeout(() => {
-          setCurrentParagraph(p => p + 1);
-          setIsAnimating(true);
-          setTimeout(() => setIsAnimating(false), 500);
-        }, 500);
-      } else {
-        setIsPlaying(false);
-      }
-    };
-
-    if (isPlaying && story) {
-      const paragraphs = story.content.split('\n\n');
-      if (currentParagraph < paragraphs.length) {
-        const text = paragraphs[currentParagraph].replace(/Pipi: /g, '').replace(/Pōpo: /g, '').replace(/Little Frog: /g, '').replace(/\n.*$/gm, '');
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
-        utterance.onend = handleEnd;
-        utteranceRef.current = utterance;
-        speechSynthesis.speak(utterance);
-        setSpeakingIndex(currentParagraph);
-      }
+    if (story) {
+      const paras = story.content.split('\n\n');
+      const newDialogues: Array<{speaker: 'pipi' | 'popo' | 'frog', english: string, chinese: string}> = [];
+      
+      paras.forEach(para => {
+        if (para.startsWith('Pipi:')) {
+          const lines = para.split('\n');
+          const english = lines[0].replace('Pipi: ', '');
+          const chinese = lines[1] || '';
+          newDialogues.push({ speaker: 'pipi', english, chinese });
+        } else if (para.startsWith('Pōpo:')) {
+          const lines = para.split('\n');
+          const english = lines[0].replace('Pōpo: ', '');
+          const chinese = lines[1] || '';
+          newDialogues.push({ speaker: 'popo', english, chinese });
+        } else if (para.startsWith('Little Frog:')) {
+          const lines = para.split('\n');
+          const english = lines[0].replace('Little Frog: ', '');
+          const chinese = lines[1] || '';
+          newDialogues.push({ speaker: 'frog', english, chinese });
+        }
+      });
+      
+      setDialogues(newDialogues);
     }
+  }, [story]);
 
-    return () => {
-      speechSynthesis.cancel();
+  const speakDialogue = (index: number) => {
+    if (index >= dialogues.length) return;
+    
+    const dialogue = dialogues[index];
+    setCurrentDialogueIndex(index);
+    setCurrentEnglish(dialogue.english);
+    setCurrentChinese(dialogue.chinese);
+    setSpeakingCharacter(dialogue.speaker);
+    
+    const utterance = new SpeechSynthesisUtterance(dialogue.english);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = dialogue.speaker === 'pipi' ? 1.1 : dialogue.speaker === 'popo' ? 0.95 : 1.05;
+    utterance.onend = () => {
+      setSpeakingCharacter(null);
     };
-  }, [isPlaying, story, currentParagraph]);
+    speechSynthesis.speak(utterance);
+  };
 
-  const handlePlay = () => {
-    if (isPlaying) {
-      speechSynthesis.cancel();
-      setIsPlaying(false);
-      setSpeakingIndex(-1);
+  const handlePipiClick = () => {
+    speechSynthesis.cancel();
+    if (currentDialogueIndex === -1) {
+      const firstDialogue = dialogues.findIndex(d => d.speaker === 'pipi');
+      if (firstDialogue !== -1) speakDialogue(firstDialogue);
     } else {
-      setIsPlaying(true);
+      const nextPipi = dialogues.findIndex((d, i) => i > currentDialogueIndex && d.speaker === 'pipi');
+      if (nextPipi !== -1) {
+        speakDialogue(nextPipi);
+      } else {
+        const firstDialogue = dialogues.findIndex(d => d.speaker === 'pipi');
+        if (firstDialogue !== -1) speakDialogue(firstDialogue);
+      }
     }
   };
 
-  const handleReset = () => {
+  const handlePopoClick = () => {
     speechSynthesis.cancel();
-    setIsPlaying(false);
-    setCurrentParagraph(0);
-    setSpeakingIndex(-1);
-  };
-
-  const goToParagraph = (index: number) => {
-    speechSynthesis.cancel();
-    setCurrentParagraph(index);
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 500);
-    if (isPlaying) {
-      setSpeakingIndex(index);
+    if (currentDialogueIndex === -1) {
+      const firstDialogue = dialogues.findIndex(d => d.speaker === 'popo');
+      if (firstDialogue !== -1) speakDialogue(firstDialogue);
+    } else {
+      const nextPopo = dialogues.findIndex((d, i) => i > currentDialogueIndex && d.speaker === 'popo');
+      if (nextPopo !== -1) {
+        speakDialogue(nextPopo);
+      } else {
+        const firstDialogue = dialogues.findIndex(d => d.speaker === 'popo');
+        if (firstDialogue !== -1) speakDialogue(firstDialogue);
+      }
     }
   };
 
@@ -94,8 +111,29 @@ export default function StoryDetailPage() {
   const paragraphs = story.content.split('\n\n');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-warm-50 via-warm-100 to-calm-50 py-12 px-4">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-warm-50 via-warm-100 to-calm-50 py-12 px-4 relative overflow-hidden">
+      {/* 背景装饰 */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* 飘落的装饰 */}
+        <div className="absolute top-10 left-[10%] text-4xl animate-float opacity-40">🌰</div>
+        <div className="absolute top-20 right-[15%] text-3xl animate-float opacity-30" style={{animationDelay: '0.5s'}}>🐛</div>
+        <div className="absolute top-[30%] left-[5%] text-3xl animate-float opacity-35" style={{animationDelay: '1s'}}>🐸</div>
+        <div className="absolute top-[40%] right-[8%] text-2xl animate-float opacity-30" style={{animationDelay: '1.5s'}}>🐦</div>
+        <div className="absolute bottom-[30%] left-[8%] text-2xl animate-float opacity-25" style={{animationDelay: '2s'}}>🦅</div>
+        <div className="absolute bottom-[20%] right-[12%] text-3xl animate-float opacity-35" style={{animationDelay: '0.8s'}}>🌰</div>
+        <div className="absolute top-[15%] left-[25%] text-2xl animate-float opacity-20" style={{animationDelay: '2.5s'}}>🐛</div>
+        <div className="absolute bottom-[40%] right-[25%] text-2xl animate-float opacity-25" style={{animationDelay: '1.2s'}}>🐦</div>
+        <div className="absolute top-[50%] left-[3%] text-xl animate-float opacity-20" style={{animationDelay: '3s'}}>🐸</div>
+        <div className="absolute bottom-[15%] left-[20%] text-xl animate-float opacity-25" style={{animationDelay: '0.3s'}}>🦅</div>
+        
+        {/* 更多装饰 */}
+        <div className="absolute top-[25%] right-[3%] text-xl animate-float opacity-15" style={{animationDelay: '2.2s'}}>🌰</div>
+        <div className="absolute bottom-[25%] left-[15%] text-xl animate-float opacity-20" style={{animationDelay: '1.8s'}}>🐛</div>
+        <div className="absolute top-[60%] right-[18%] text-xl animate-float opacity-15" style={{animationDelay: '2.8s'}}>🐦</div>
+        <div className="absolute bottom-[35%] left-[30%] text-lg animate-float opacity-20" style={{animationDelay: '0.6s'}}>🐸</div>
+      </div>
+
+      <div className="max-w-4xl mx-auto relative z-10">
         <Link
           to="/stories"
           className="inline-flex items-center gap-2 text-warm-600 hover:text-warm-700 mb-8 transition-colors"
@@ -104,10 +142,58 @@ export default function StoryDetailPage() {
           返回故事小屋
         </Link>
 
-        <article className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="bg-gradient-to-r from-warm-200 to-calm-200 p-8 text-center relative">
-            <div className="text-6xl mb-4 animate-float">{story.emoji}</div>
-            <div className="flex items-center justify-center gap-2 mb-4 flex-wrap">
+        <article className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden">
+          {/* 头部 - 两只松鸦 */}
+          <div className="bg-gradient-to-r from-warm-200 to-calm-200 p-6 text-center relative">
+            <div className="flex justify-center items-center gap-8">
+              {/* 皮皮 */}
+              <div 
+                className={`text-center cursor-pointer transition-all duration-300 ${
+                  speakingCharacter === 'pipi' 
+                    ? 'transform scale-110 drop-shadow-lg' 
+                    : speakingCharacter !== null && speakingCharacter !== 'pipi'
+                    ? 'opacity-50 grayscale'
+                    : 'hover:scale-105'
+                }`}
+                onClick={handlePipiClick}
+              >
+                <div className={`relative ${speakingCharacter === 'pipi' ? 'animate-wiggle' : ''}`}>
+                  <div className={`text-8xl ${speakingCharacter === 'pipi' ? 'drop-shadow-2xl' : ''}`}>🐦</div>
+                  {speakingCharacter === 'pipi' && (
+                    <div className="absolute -inset-4 bg-warm-400/30 rounded-full animate-ping"></div>
+                  )}
+                </div>
+                <p className="font-display text-lg text-warm-700 mt-2">皮皮</p>
+                <p className="text-xs text-warm-500">点击朗读</p>
+              </div>
+
+              {/* 中间对话图标 */}
+              <div className="text-4xl animate-bounce">💬</div>
+
+              {/* 坡坡 */}
+              <div 
+                className={`text-center cursor-pointer transition-all duration-300 ${
+                  speakingCharacter === 'popo' 
+                    ? 'transform scale-110 drop-shadow-lg' 
+                    : speakingCharacter !== null && speakingCharacter !== 'popo'
+                    ? 'opacity-50 grayscale'
+                    : 'hover:scale-105'
+                }`}
+                onClick={handlePopoClick}
+              >
+                <div className={`relative ${speakingCharacter === 'popo' ? 'animate-wiggle' : ''}`}>
+                  <div className={`text-8xl ${speakingCharacter === 'popo' ? 'drop-shadow-2xl' : ''}`}>🦅</div>
+                  {speakingCharacter === 'popo' && (
+                    <div className="absolute -inset-4 bg-calm-400/30 rounded-full animate-ping"></div>
+                  )}
+                </div>
+                <p className="font-display text-lg text-calm-700 mt-2">坡坡</p>
+                <p className="text-xs text-calm-500">点击朗读</p>
+              </div>
+            </div>
+
+            {/* 标签 */}
+            <div className="flex items-center justify-center gap-2 mb-4 flex-wrap mt-4">
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                 story.category === 'anxiety' ? 'bg-orange-100 text-orange-600' :
                 story.category === 'relax' ? 'bg-calm-100 text-calm-600' :
@@ -127,136 +213,122 @@ export default function StoryDetailPage() {
                 {story.character === 'both' && '🐦🦅 一起的故事'}
               </span>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl text-warm-700 mb-2 animate-fade-in">
+            <h1 className="font-display text-3xl md:text-4xl text-warm-700 mb-2">
               {story.title}
             </h1>
             <p className="text-warm-600 flex items-center justify-center gap-2">
               <Calendar className="w-4 h-4" />
               {story.createdAt}
             </p>
-
-            <div className="absolute top-4 right-4 flex gap-2">
-              <button
-                onClick={() => setIsMuted(!isMuted)}
-                className={`p-3 rounded-full transition-all ${isMuted ? 'bg-gray-300 text-gray-500' : 'bg-white/80 text-warm-600 hover:bg-white'}`}
-              >
-                {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-              </button>
-            </div>
           </div>
 
-          <div className="p-8 md:p-12">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <button
-                onClick={handleReset}
-                className="p-3 bg-warm-100 hover:bg-warm-200 text-warm-600 rounded-full transition-colors"
-              >
-                <RotateCcw className="w-5 h-5" />
-              </button>
-              <button
-                onClick={handlePlay}
-                className={`px-8 py-4 rounded-full font-display text-xl transition-all shadow-lg hover:shadow-xl ${
-                  isPlaying
-                    ? 'bg-orange-500 hover:bg-orange-600 text-white'
-                    : 'bg-warm-500 hover:bg-warm-600 text-white'
-                }`}
-              >
-                {isPlaying ? (
-                  <>
-                    <Pause className="w-6 h-6 inline mr-2" />
-                    暂停
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-6 h-6 inline mr-2" />
-                    朗读故事
-                  </>
-                )}
-              </button>
-              <button
-                onClick={() => goToParagraph(Math.max(0, currentParagraph - 1))}
-                disabled={currentParagraph === 0}
-                className="p-3 bg-warm-100 hover:bg-warm-200 text-warm-600 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => goToParagraph(Math.min(paragraphs.length - 1, currentParagraph + 1))}
-                disabled={currentParagraph === paragraphs.length - 1}
-                className="p-3 bg-warm-100 hover:bg-warm-200 text-warm-600 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex justify-center gap-2 mb-8">
-              {paragraphs.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToParagraph(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentParagraph
-                      ? 'bg-warm-500 w-6'
-                      : index === speakingIndex
-                      ? 'bg-calm-400 animate-pulse'
-                      : 'bg-warm-200 hover:bg-warm-300'
-                  }`}
-                />
-              ))}
-            </div>
-
-            <div className={`transition-all duration-500 ${isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
-              <div className="prose prose-lg max-w-none">
-                {paragraphs.map((paragraph, index) => {
-                  if (index !== currentParagraph) return null;
-                  
-                  const isPipiDialogue = paragraph.startsWith('Pipi:');
-                  const isPopoDialogue = paragraph.startsWith('Pōpo:');
-                  const isFrogDialogue = paragraph.startsWith('Little Frog:');
-
-                  return (
-                    <div key={index} className="animate-fade-in">
-                      {isPipiDialogue || isPopoDialogue || isFrogDialogue ? (
-                        <div className={`flex items-start gap-4 mb-8 p-6 rounded-2xl ${
-                          isPipiDialogue ? 'bg-warm-50 border-l-4 border-warm-400' :
-                          isPopoDialogue ? 'bg-calm-50 border-l-4 border-calm-400' :
-                          'bg-nature-50 border-l-4 border-nature-400'
-                        }`}>
-                          <div className="text-4xl flex-shrink-0">
-                            {isPipiDialogue && '🐦'}
-                            {isPopoDialogue && '🦅'}
-                            {isFrogDialogue && '🐸'}
-                          </div>
-                          <div className="flex-1">
-                            {paragraph.split('\n').map((line, lineIndex) => (
-                              <p
-                                key={lineIndex}
-                                className={`leading-relaxed ${
-                                  lineIndex === 0 
-                                    ? isPipiDialogue ? 'text-warm-700 font-medium' : 
-                                      isPopoDialogue ? 'text-calm-700 font-medium' :
-                                      'text-nature-700 font-medium'
-                                    : 'text-gray-600 text-sm mt-2'
-                                }`}
-                              >
-                                {line.replace(/^Pipi: /, '').replace(/^Pōpo: /, '').replace(/^Little Frog: /, '')}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <p className="text-warm-800 leading-relaxed mb-6 text-lg">
-                          {paragraph}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
+          {/* 对话翻译显示区 */}
+          {currentEnglish && (
+            <div className="bg-gradient-to-r from-warm-100 to-calm-100 p-4 animate-fade-in">
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-2xl">{speakingCharacter === 'pipi' ? '🐦' : speakingCharacter === 'popo' ? '🦅' : '🐸'}</span>
+                  <span className="font-display text-lg text-warm-700">
+                    {speakingCharacter === 'pipi' ? '皮皮说：' : speakingCharacter === 'popo' ? '坡坡说：' : '小青蛙说：'}
+                  </span>
+                </div>
+                <p className="text-lg text-warm-800 mb-2 leading-relaxed">{currentEnglish}</p>
+                <p className="text-base text-calm-700 italic">{currentChinese}</p>
               </div>
             </div>
+          )}
 
+          {/* 故事内容 */}
+          <div className="p-8 md:p-12">
+            <div className="prose prose-lg max-w-none">
+              {paragraphs.map((paragraph, index) => {
+                const isPipiDialogue = paragraph.startsWith('Pipi:');
+                const isPopoDialogue = paragraph.startsWith('Pōpo:');
+                const isFrogDialogue = paragraph.startsWith('Little Frog:');
+                const isDialogue = isPipiDialogue || isPopoDialogue || isFrogDialogue;
+
+                return (
+                  <div key={index} className="mb-6">
+                    {isPipiDialogue ? (
+                      <div 
+                        className={`flex items-start gap-4 p-6 rounded-2xl bg-warm-50 border-l-4 border-warm-400 cursor-pointer transition-all hover:scale-[1.02] ${
+                          currentDialogueIndex === dialogues.findIndex(d => d.speaker === 'pipi' && d.english === paragraph.split('\n')[0].replace('Pipi: ', ''))
+                            ? 'ring-4 ring-warm-300'
+                            : ''
+                        }`}
+                        onClick={() => {
+                          const di = dialogues.findIndex(d => d.speaker === 'pipi' && d.english === paragraph.split('\n')[0].replace('Pipi: ', ''));
+                          if (di !== -1) speakDialogue(di);
+                        }}
+                      >
+                        <div className="text-4xl flex-shrink-0">🐦</div>
+                        <div className="flex-1">
+                          {paragraph.split('\n').map((line, lineIndex) => (
+                            <p key={lineIndex} className={`leading-relaxed ${lineIndex === 0 ? 'text-warm-700 font-medium' : 'text-gray-600 text-sm mt-2'}`}>
+                              {line.replace(/^Pipi: /, '')}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ) : isPopoDialogue ? (
+                      <div 
+                        className={`flex items-start gap-4 p-6 rounded-2xl bg-calm-50 border-l-4 border-calm-400 cursor-pointer transition-all hover:scale-[1.02] ${
+                          currentDialogueIndex === dialogues.findIndex(d => d.speaker === 'popo' && d.english === paragraph.split('\n')[0].replace('Pōpo: ', ''))
+                            ? 'ring-4 ring-calm-300'
+                            : ''
+                        }`}
+                        onClick={() => {
+                          const di = dialogues.findIndex(d => d.speaker === 'popo' && d.english === paragraph.split('\n')[0].replace('Pōpo: ', ''));
+                          if (di !== -1) speakDialogue(di);
+                        }}
+                      >
+                        <div className="text-4xl flex-shrink-0">🦅</div>
+                        <div className="flex-1">
+                          {paragraph.split('\n').map((line, lineIndex) => (
+                            <p key={lineIndex} className={`leading-relaxed ${lineIndex === 0 ? 'text-calm-700 font-medium' : 'text-gray-600 text-sm mt-2'}`}>
+                              {line.replace(/^Pōpo: /, '')}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ) : isFrogDialogue ? (
+                      <div 
+                        className={`flex items-start gap-4 p-6 rounded-2xl bg-nature-50 border-l-4 border-nature-400 cursor-pointer transition-all hover:scale-[1.02] ${
+                          currentDialogueIndex === dialogues.findIndex(d => d.speaker === 'frog' && d.english === paragraph.split('\n')[0].replace('Little Frog: ', ''))
+                            ? 'ring-4 ring-nature-300'
+                            : ''
+                        }`}
+                        onClick={() => {
+                          const di = dialogues.findIndex(d => d.speaker === 'frog' && d.english === paragraph.split('\n')[0].replace('Little Frog: ', ''));
+                          if (di !== -1) speakDialogue(di);
+                        }}
+                      >
+                        <div className="text-4xl flex-shrink-0">🐸</div>
+                        <div className="flex-1">
+                          {paragraph.split('\n').map((line, lineIndex) => (
+                            <p key={lineIndex} className={`leading-relaxed ${lineIndex === 0 ? 'text-nature-700 font-medium' : 'text-gray-600 text-sm mt-2'}`}>
+                              {line.replace(/^Little Frog: /, '')}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-warm-800 leading-relaxed text-lg p-4 bg-warm-50/50 rounded-xl">
+                        {paragraph}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* 底部装饰 */}
             <div className="mt-12 pt-8 border-t border-warm-200 text-center">
-              <div className="text-4xl mb-4 animate-float">✨</div>
+              <div className="flex justify-center gap-4 mb-4">
+                <span className="text-4xl">🐦</span>
+                <span className="text-4xl">🦅</span>
+                <span className="text-4xl">💕</span>
+              </div>
               <p className="text-warm-600">
                 {story.character === 'pipi' && '希望皮皮的故事能给你带来勇气 💪'}
                 {story.character === 'popo' && '希望坡坡的智慧能帮你找到平静 🕊️'}
@@ -266,6 +338,7 @@ export default function StoryDetailPage() {
           </div>
         </article>
 
+        {/* 相关故事推荐 */}
         <div className="mt-12">
           <h2 className="font-display text-2xl text-warm-700 mb-6 text-center">看看其他故事</h2>
           <div className="grid md:grid-cols-2 gap-4">
