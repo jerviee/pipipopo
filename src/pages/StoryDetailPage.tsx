@@ -122,7 +122,7 @@ export default function StoryDetailPage() {
       setIsChirping(false);
       const utterance = new SpeechSynthesisUtterance(dialogue.english);
       utterance.lang = 'en-US';
-      utterance.rate = 0.9;
+      utterance.rate = 1.05;
       
       const voices = speechSynthesis.getVoices();
       if (dialogue.speaker === 'pipi') {
@@ -131,16 +131,17 @@ export default function StoryDetailPage() {
           v.name.includes('Leo') || v.name.includes('Jacob'));
         if (boyVoice) utterance.voice = boyVoice;
         utterance.pitch = 1.2;
-        utterance.rate = 0.95;
+        utterance.rate = 1.05;
       } else if (dialogue.speaker === 'popo') {
         const girlVoice = voices.find(v => v.name.includes('Girl') || v.name.includes('girl') || 
           v.name.includes('Female') || v.name.includes('female') || v.name.includes('Ava') || 
           v.name.includes('Olivia') || v.name.includes('Emma'));
         if (girlVoice) utterance.voice = girlVoice;
         utterance.pitch = 0.9;
-        utterance.rate = 0.85;
+        utterance.rate = 1.05;
       } else {
         utterance.pitch = 1.05;
+        utterance.rate = 1.05;
       }
       
       utterance.onend = () => {
