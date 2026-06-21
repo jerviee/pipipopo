@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { getStoryById } from '../data/stories';
 import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 
-// 使用可靠的图片源 - Wikipedia Commons的松鸦图片
-const PIPI_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Eurasian_jay_garrulus_glandarius.jpg/800px-Eurasian_jay_garrulus_glandarius.jpg';
-const POPO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Garrulus_glandarius_-_Wikipedia.jpg/800px-Garrulus_glandarius_-_Wikipedia.jpg';
+// 使用大号emoji作为头像 - 更可靠稳定
+const PIPI_AVATAR = '🐦';
+const POPO_AVATAR = '🦅';
 
 function playChirpSound(pitch: number = 1) {
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -223,21 +223,12 @@ export default function StoryDetailPage() {
                     🎵叽叽叽
                   </div>
                 )}
-                <div className={`w-32 h-32 mx-auto rounded-full overflow-hidden border-4 transition-all ${
+                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all flex items-center justify-center ${
                   speakingCharacter === 'pipi' 
-                    ? 'border-warm-400 shadow-2xl shadow-warm-400/50 scale-110' 
-                    : 'border-warm-200'
+                    ? 'border-warm-400 shadow-2xl shadow-warm-400/50 scale-110 bg-warm-100' 
+                    : 'border-warm-200 bg-warm-50'
                 }`}>
-                  <img 
-                    src={PIPI_IMAGE} 
-                    alt="皮皮" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = '';
-                      e.currentTarget.parentElement!.innerHTML = '<span class="text-8xl">🐦</span>';
-                    }}
-                  />
+                  <span className="text-8xl">{PIPI_AVATAR}</span>
                 </div>
               </div>
 
@@ -283,21 +274,12 @@ export default function StoryDetailPage() {
                     🎵叽叽叽
                   </div>
                 )}
-                <div className={`w-32 h-32 mx-auto rounded-full overflow-hidden border-4 transition-all ${
+                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all flex items-center justify-center ${
                   speakingCharacter === 'popo' 
-                    ? 'border-calm-400 shadow-2xl shadow-calm-400/50 scale-110' 
-                    : 'border-calm-200'
+                    ? 'border-calm-400 shadow-2xl shadow-calm-400/50 scale-110 bg-calm-100' 
+                    : 'border-calm-200 bg-calm-50'
                 }`}>
-                  <img 
-                    src={POPO_IMAGE} 
-                    alt="坡坡" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = '';
-                      e.currentTarget.parentElement!.innerHTML = '<span class="text-8xl">🦅</span>';
-                    }}
-                  />
+                  <span className="text-8xl">{POPO_AVATAR}</span>
                 </div>
               </div>
 
