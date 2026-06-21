@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { getStoryById } from '../data/stories';
 import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 
-// 使用大号emoji作为头像 - 更可靠稳定
-const PIPI_AVATAR = '🐦';
-const POPO_AVATAR = '🦅';
+// 使用public目录中的本地图片作为头像
+const PIPI_IMAGE = '/皮皮-1.jpg';
+const POPO_IMAGE = '/坡坡-1.jpg';
 
 function playChirpSound(pitch: number = 1) {
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -223,12 +223,16 @@ export default function StoryDetailPage() {
                     🎵叽叽叽
                   </div>
                 )}
-                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all flex items-center justify-center ${
+                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all overflow-hidden ${
                   speakingCharacter === 'pipi' 
-                    ? 'border-warm-400 shadow-2xl shadow-warm-400/50 scale-110 bg-warm-100' 
-                    : 'border-warm-200 bg-warm-50'
+                    ? 'border-warm-400 shadow-2xl shadow-warm-400/50 scale-110' 
+                    : 'border-warm-200'
                 }`}>
-                  <span className="text-8xl">{PIPI_AVATAR}</span>
+                  <img 
+                    src={PIPI_IMAGE} 
+                    alt="皮皮" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
@@ -274,12 +278,16 @@ export default function StoryDetailPage() {
                     🎵叽叽叽
                   </div>
                 )}
-                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all flex items-center justify-center ${
+                <div className={`w-32 h-32 mx-auto rounded-full border-4 transition-all overflow-hidden ${
                   speakingCharacter === 'popo' 
-                    ? 'border-calm-400 shadow-2xl shadow-calm-400/50 scale-110 bg-calm-100' 
-                    : 'border-calm-200 bg-calm-50'
+                    ? 'border-calm-400 shadow-2xl shadow-calm-400/50 scale-110' 
+                    : 'border-calm-200'
                 }`}>
-                  <span className="text-8xl">{POPO_AVATAR}</span>
+                  <img 
+                    src={POPO_IMAGE} 
+                    alt="坡坡" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
