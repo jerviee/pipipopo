@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getStoryById } from '../data/stories';
-import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
+import { getStoryById, getStoryIndex, stories } from '../data/stories';
+import { ArrowLeft, Calendar, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // 使用public目录中的本地图片作为头像
 const PIPI_IMAGES = [
@@ -67,6 +67,7 @@ export default function StoryDetailPage() {
   const [isChirping, setIsChirping] = useState(false);
   const [showGlow, setShowGlow] = useState(false);
   const [showFullDialogue, setShowFullDialogue] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (story) {
@@ -96,6 +97,13 @@ export default function StoryDetailPage() {
     }
   }, [story]);
 
+  useEffect(() => {
+    if (id) {
+      const idx = getStoryIndex(id);
+      if (idx !== -1) setCurrentIndex(idx);
+    }
+  }, [id]);
+
   const speakDialogue = (index: number) => {
     if (index >= dialogues.length) return;
     
@@ -118,14 +126,18 @@ export default function StoryDetailPage() {
       
       const voices = speechSynthesis.getVoices();
       if (dialogue.speaker === 'pipi') {
-        const boyVoice = voices.find(v => v.name.includes('Boy') || v.name.includes('boy') || v.name.includes('Child') || v.name.includes('child'));
+        const boyVoice = voices.find(v => v.name.includes('Boy') || v.name.includes('boy') || 
+          v.name.includes('Child') || v.name.includes('child') || v.name.includes('Oliver') || 
+          v.name.includes('Leo') || v.name.includes('Jacob'));
         if (boyVoice) utterance.voice = boyVoice;
-        utterance.pitch = 1.15;
+        utterance.pitch = 1.2;
         utterance.rate = 0.95;
       } else if (dialogue.speaker === 'popo') {
-        const girlVoice = voices.find(v => v.name.includes('Girl') || v.name.includes('girl') || v.name.includes('Female') || v.name.includes('female'));
+        const girlVoice = voices.find(v => v.name.includes('Girl') || v.name.includes('girl') || 
+          v.name.includes('Female') || v.name.includes('female') || v.name.includes('Ava') || 
+          v.name.includes('Olivia') || v.name.includes('Emma'));
         if (girlVoice) utterance.voice = girlVoice;
-        utterance.pitch = 1.0;
+        utterance.pitch = 0.9;
         utterance.rate = 0.85;
       } else {
         utterance.pitch = 1.05;
@@ -238,6 +250,33 @@ export default function StoryDetailPage() {
             <Calendar className="w-4 h-4" />
             {story.createdAt}
           </p>
+        </div>
+
+        {/* 故事切换按钮 */}
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <Link
+            to={currentIndex > 0 ? `/stories/${stories[currentIndex - 1].id}` : '#'}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-display text-lg transition-all ${
+              currentIndex > 0
+                ? 'bg-warm-100 text-warm-700 hover:bg-warm-200'
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+            上一个
+          </Link>
+          <span className="text-warm-600">{currentIndex + 1} / {stories.length}</span>
+          <Link
+            to={currentIndex < stories.length - 1 ? `/stories/${stories[currentIndex + 1].id}` : '#'}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-display text-lg transition-all ${
+              currentIndex < stories.length - 1
+                ? 'bg-calm-100 text-calm-700 hover:bg-calm-200'
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            下一个
+            <ChevronRight className="w-5 h-5" />
+          </Link>
         </div>
 
         {/* 左右对话区域 */}

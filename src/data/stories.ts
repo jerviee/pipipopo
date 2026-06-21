@@ -501,3 +501,7 @@ export const getStoriesByCategory = (category: 'anxiety' | 'relax' | 'growth') =
 export const getStoryById = (id: string) => {
   return stories.find(story => story.id === id || story.id === `story-${id.padStart(3, '0')}` || story.id.includes(id));
 };
+
+export const getStoryIndex = (id: string) => {
+  return stories.findIndex(story => story.id === id || story.id === `story-${id.padStart(3, '0')}` || story.id.includes(id));
+};
