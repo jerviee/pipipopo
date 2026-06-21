@@ -18,7 +18,8 @@ const POPO_IMAGES = [
 ];
 
 function getAvatarIndex(storyId: string): number {
-  const idNum = parseInt(storyId, 10);
+  const match = storyId.match(/\d+/);
+  const idNum = match ? parseInt(match[0], 10) : 1;
   return (idNum - 1) % 4;
 }
 
