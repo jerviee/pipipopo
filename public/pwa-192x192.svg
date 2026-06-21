@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#FFF8E1"/>
+  <circle cx="96" cy="85" r="55" fill="#FF9800"/>
+  <ellipse cx="96" cy="75" rx="35" ry="40" fill="#FFC107"/>
+  <circle cx="78" cy="70" r="8" fill="#FFFFFF"/>
+  <circle cx="78" cy="70" r="4" fill="#333333"/>
+  <circle cx="114" cy="70" r="8" fill="#FFFFFF"/>
+  <circle cx="114" cy="70" r="4" fill="#333333"/>
+  <ellipse cx="96" cy="95" rx="10" ry="6" fill="#FF5722"/>
+  <path d="M 85 95 Q 96 105 107 95" stroke="#333333" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 50 60 Q 60 40 75 55" stroke="#8D6E63" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M 142 60 Q 132 40 117 55" stroke="#8D6E63" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="50" cy="58" rx="15" ry="20" fill="#8D6E63"/>
+  <ellipse cx="142" cy="58" rx="15" ry="20" fill="#8D6E63"/>
+  <text x="96" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#333333" font-weight="bold">放松鸦</text>
+</svg>
