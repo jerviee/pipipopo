@@ -4,8 +4,23 @@ import { getStoryById } from '../data/stories';
 import { ArrowLeft, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 
 // 使用public目录中的本地图片作为头像
-const PIPI_IMAGE = '/皮皮-1.jpg';
-const POPO_IMAGE = '/坡坡-1.jpg';
+const PIPI_IMAGES = [
+  '/皮皮-1.jpg',
+  '/皮皮-2.jpg',
+  '/皮皮-3.jpg',
+  '/皮皮-4.jpg',
+];
+const POPO_IMAGES = [
+  '/坡坡-1.jpg',
+  '/坡坡-2.jpg',
+  '/坡坡-3.jpg',
+  '/坡坡-4.jpg',
+];
+
+function getAvatarIndex(storyId: string): number {
+  const idNum = parseInt(storyId, 10);
+  return (idNum - 1) % 4;
+}
 
 function playChirpSound(pitch: number = 1) {
   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -91,7 +106,22 @@ export default function StoryDetailPage() {
       const utterance = new SpeechSynthesisUtterance(dialogue.english);
       utterance.lang = 'en-US';
       utterance.rate = 0.9;
-      utterance.pitch = dialogue.speaker === 'pipi' ? 1.1 : dialogue.speaker === 'popo' ? 0.95 : 1.05;
+      
+      const voices = speechSynthesis.getVoices();
+      if (dialogue.speaker === 'pipi') {
+        const boyVoice = voices.find(v => v.name.includes('Boy') || v.name.includes('boy') || v.name.includes('Child') || v.name.includes('child'));
+        if (boyVoice) utterance.voice = boyVoice;
+        utterance.pitch = 1.15;
+        utterance.rate = 0.95;
+      } else if (dialogue.speaker === 'popo') {
+        const girlVoice = voices.find(v => v.name.includes('Girl') || v.name.includes('girl') || v.name.includes('Female') || v.name.includes('female'));
+        if (girlVoice) utterance.voice = girlVoice;
+        utterance.pitch = 1.0;
+        utterance.rate = 0.85;
+      } else {
+        utterance.pitch = 1.05;
+      }
+      
       utterance.onend = () => {
         setSpeakingCharacter(null);
         setShowGlow(false);
@@ -149,6 +179,10 @@ export default function StoryDetailPage() {
       </div>
     );
   }
+
+  const avatarIndex = getAvatarIndex(id || '1');
+  const currentPipiImage = PIPI_IMAGES[avatarIndex];
+  const currentPopoImage = POPO_IMAGES[avatarIndex];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-warm-50 via-warm-100 to-calm-50 py-12 px-4 relative overflow-hidden">
@@ -229,7 +263,7 @@ export default function StoryDetailPage() {
                     : 'border-warm-200'
                 }`}>
                   <img 
-                    src={PIPI_IMAGE} 
+                    src={currentPipiImage} 
                     alt="皮皮" 
                     className="w-full h-full object-cover"
                   />
@@ -284,7 +318,7 @@ export default function StoryDetailPage() {
                     : 'border-calm-200'
                 }`}>
                   <img 
-                    src={POPO_IMAGE} 
+                    src={currentPopoImage} 
                     alt="坡坡" 
                     className="w-full h-full object-cover"
                   />
